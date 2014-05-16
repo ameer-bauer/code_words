@@ -14,8 +14,7 @@
 # .
 # .
 #CATEGORY(N)
-#ITEM(1),ITEM(2),...,ITEM(N)
-#EOF
+#ITEM(1),ITEM(2),...,ITEM(N)EOF
 
 import os
 import sys
