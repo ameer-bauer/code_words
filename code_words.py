@@ -48,7 +48,7 @@ if args.h :
     print('  order, as you see fit.  The default reference file (codex.txt) is used if the')
     print('  -f flag is omitted.  The codex.txt file contains categories similar to those')
     print('  found in Charles Stross\' Laundry series.  Enjoy!')
-    print('\nSYNTAX\n  python3 code_words.py [-h] [-f [filename]] [-lc | -lv] [-g # [# ...]]')
+    print('\nSYNTAX\n  python3 code_words.py [-h] [-v] [-f [filename]] [-lc | -lv] [-g # [# ...]]')
     print('\nARGUMENTS')
     print('  -h Displays this help page.\n')
     print('  -v Displays the version of code_words.\n')
