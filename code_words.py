@@ -25,6 +25,7 @@ import random
 parser = argparse.ArgumentParser(add_help=False, description='Welcome to code_words version 1.2.1, a program which allows you to randomly generate a sequence of words.')
 parser.add_argument("-h", action='store_true', help="Display the help page.")
 parser.add_argument("-v", action='store_true', help="Display version information.")
+parser.add_argument("-q", action='store_true', help="QUITE MODE: Only display the generated code word(s).")
 parser.add_argument("-s", nargs='?', help="Use a custom seed for the random number generator.", metavar='seed')
 parser.add_argument("-f", nargs='?', help="Use a custom reference file for code word generation.", metavar='filename')
 group = parser.add_mutually_exclusive_group()
@@ -39,7 +40,7 @@ if args.v:
     print('code_words verison:', version)
     sys.exit()
 
-if args.h :
+if args.h:
     print('Introduction to code_words', version)
     print('  The code_words program is a code word generator which allows you to randomly')
     print('  generate a sequence of words chosen from a reference file.  Feel free to add')
@@ -48,16 +49,17 @@ if args.h :
     print('  order, as you see fit.  The default reference file (codex.txt) is used if the')
     print('  -f flag is omitted.  The codex.txt file contains categories similar to those')
     print('  found in Charles Stross\' Laundry series.  Enjoy!')
-    print('\nSYNTAX\n  python3 code_words.py [-h] [-v] [-f [filename]] [-lc | -lv] [-g # [# ...]]')
+    print('\nSYNTAX\n  python3 code_words.py [-h] [-v] [-q] [-f [filename]] [-lc | -lv] [-g # [# ...]]')
     print('\nARGUMENTS')
     print('  -h Displays this help page.\n')
     print('  -v Displays the version of code_words.\n')
+    print('  -q Displays only the generated code word(s), without any additional information.\n')
     print('  -s <seed string> Utilize a user-defined seed for the random number generator.\n')
     print('  -f <filename> References <filename> instead of codex.txt for word lists.\n')
     print('  -lc List categories and indices from the reference file.\n')
     print('  -lv Verbosely list word categories from the reference file.\n')
     print('  -g {c1 c2 ... cN} Generates a code word via the listed category indices.\n')
-    print('\nEXAMPLE\n  python3 code_words.py -g 0 7 2 8 ... cN')
+    print('\nEXAMPLES\n  python3 code_words.py -g 0 7 2 8 ... cN')
     print('    Outputs the sequence of words \"w1 w2 w3 w4 ... wM\":')
     print('      Where w1 is chosen from category 0, w2 from category 7 ... to wM from')
     print('      category cN referenced from the file codex.txt.')
@@ -79,57 +81,58 @@ if args.h :
 code_list = []
 file_name = 'codex.txt' #Set the default reference file name.
 
-if args.f :
+if args.f:
     file_name = args.f
 
-try :
+try:
     for raw in open(file_name, encoding = 'utf-8', mode = 'r'):
         line = raw[:-1] #Get rid of new line characters
         if ',' in line : #Split strings with CSV into a list
             code_list.append(line.split(','))
-        else :
+        else:
             code_list.append(line) #Set strings w/o a CSV to be a single string
     list_count = len(code_list) #Count the lines from codex.txt; it should be even
 
-    if list_count % 2 != 0 :
+    if list_count % 2 != 0:
         sys.exit(1) #The following except will catch this error
-except :
+except:
     print('ERROR: Either can\'t find the file [',file_name,'] or incorrect reference file format.')
     sys.exit(1)
 
-if args.lc :
+if args.lc:
     #Print the even lines of the codex.txt file, which should be the categories
     print('Listing category indices from reference file [', file_name,']\n')
-    for x in range(list_count) :
-        if x % 2 == 0 :
+    for x in range(list_count):
+        if x % 2 == 0:
             print(int(x / 2), code_list[x])
     sys.exit()
 
-if args.lv :
+if args.lv:
     print('Listing categories verbosely from reference file [', file_name,']')
-    for x in range(list_count) :
+    for x in range(list_count):
         if x % 2 == 0 :
             print('\n', int(x / 2), end = ' ', sep = '')
         print(code_list[x])
     sys.exit()
 
-if args.g :
-    print('Code word generation from reference file [',file_name,']\n')
-    for x in args.g : #Gen a random number and pick aa code word for each category index
-        try :
+if args.g:
+    if not args.q:
+        print('Code word generation from reference file [',file_name,']\n')
+    for x in args.g: #Gen a random number and pick a code word for each category index
+        try:
             y = int(x) * 2
-            if y < list_count and y >= 0 :
-                if args.s :
+            if y < list_count and y >= 0:
+                if args.s:
                     s = args.s
-                else :
+                else:
                     s = os.urandom(16) #gen 16 bytes of crypto-sound sudo-random data
                 random.seed(s)  #Initialize the random number generator with of random data
                 l = len(code_list[y+1]) #Remember that lists count 0 -> x not 1 -> x hence the l-1 in r
                 r = random.randint(0,l-1)
                 print(code_list[y+1][r], end = ' ')
-            else :
+            else:
                 sys.exit(1) #the following except will catch this error
-        except :
+        except:
             print('\nERROR: Invalid category index [', x, '] used.') 
             print('Please check available category indices with the -lc flag.')
             sys.exit(2)
