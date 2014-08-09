@@ -2,7 +2,7 @@
 #----------------
 #Name: code_words
 #Version: 1.2.2
-#Date: 2014-05-22
+#Date: 2014-08-08
 #----------------
 #About the codex.txt file...
 #The expected format of the file is as follows:
@@ -22,10 +22,10 @@ import argparse
 import random
 
 #Setup all of the flags and options to be passed from the CLI
-parser = argparse.ArgumentParser(add_help=False, description='Welcome to code_words version 1.2.1, a program which allows you to randomly generate a sequence of words.')
+parser = argparse.ArgumentParser(add_help=False, description='Welcome to code_words version 1.2.2, a program which allows you to randomly generate a sequence of words.')
 parser.add_argument("-h", action='store_true', help="Display the help page.")
 parser.add_argument("-v", action='store_true', help="Display version information.")
-parser.add_argument("-q", action='store_true', help="QUITE MODE: Only display the generated code word(s).")
+parser.add_argument("-q", action='store_true', help="QUIET MODE: Only display the generated code word(s).")
 parser.add_argument("-s", nargs='?', help="Use a custom seed for the random number generator.", metavar='seed')
 parser.add_argument("-f", nargs='?', help="Use a custom reference file for code word generation.", metavar='filename')
 group = parser.add_mutually_exclusive_group()
