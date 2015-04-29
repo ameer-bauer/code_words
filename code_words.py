@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 #----------------
 #Name: code_words
-#Version: 1.2.2
-#Date: 2015-01-27
+#Version: 1.2.3
+#Date: 2015-04-28
 #----------------
 #About the codex.txt file...
 #The expected format of the file is as follows:
@@ -34,10 +34,10 @@ group.add_argument('-lv', action='store_true', help="Verbosely list word categor
 parser.add_argument("-g", nargs='+', type=int, help="Generate a code word via a list of category index numbers.", metavar='#')
 args = parser.parse_args()
 
-version = "1.2.2"
+version = "1.2.3"
 
 if args.v:
-    print('code_words verison:', version)
+    print('code_words version:', version)
     sys.exit()
 
 if args.h:
@@ -49,7 +49,7 @@ if args.h:
     print('  order, as you see fit.  The default reference file (codex.txt) is used if the')
     print('  -f flag is omitted.  The codex.txt file contains categories similar to those')
     print('  found in Charles Stross\' Laundry series.  Enjoy!')
-    print('\nSYNTAX\n  python3 code_words.py [-h] [-v] [-q] [-f [filename]] [-lc | -lv] [-g # [# ...]]')
+    print('\nSYNTAX\n  python(3) code_words.py [-h] [-v] [-q] [-f [filename]] [-lc | -lv] [-g # [# ...]]')
     print('\nARGUMENTS')
     print('  -h Displays this help page.\n')
     print('  -v Displays the version of code_words.\n')
@@ -59,17 +59,17 @@ if args.h:
     print('  -lc List categories and indices from the reference file.\n')
     print('  -lv Verbosely list word categories from the reference file.\n')
     print('  -g {c1 c2 ... cN} Generates a code word via the listed category indices.\n')
-    print('\nEXAMPLES\n  python3 code_words.py -g 0 7 2 8 ... cN')
+    print('\nEXAMPLES\n  python(3) code_words.py -g 0 7 2 8 ... cN')
     print('    Outputs the sequence of words \"w1 w2 w3 w4 ... wM\":')
     print('      Where w1 is chosen from category 0, w2 from category 7 ... to wM from')
     print('      category cN referenced from the file codex.txt.')
-    print('\n  python3 code_words.py -f foo.txt -lc')
+    print('\n  python(3) code_words.py -f foo.txt -lc')
     print('    Lists the categories contained in foo.txt.')
-    print('\n  python3 code_words.py -f foo.txt -g 3 2 5')
+    print('\n  python(3) code_words.py -f foo.txt -g 3 2 5')
     print('    Outputs the sequence of words \"w1 w2 w3\":')
     print('      Where w1 is chosen from category 3, w2 from category 2 and w3 from')
     print('      category 5 referenced from the file foo.txt.')
-    print('\n  python3 code_words.py -s abc123^!@#QWERTY -f foo.txt -g 3 2 5')
+    print('\n  python(3) code_words.py -s abc123^!@#QWERTY -f foo.txt -g 3 2 5')
     print('    Outputs the sequence of words \"w1 w2 w3\":')
     print('      Where w1 is chosen from category 3, w2 from category 2 and w3 from')
     print('      category 5 referenced from the file foo.txt utilizing the seed')
