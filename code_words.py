@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 #----------------
 #Name: code_words
-#Version: 1.2.3
-#Date: 2014-08-07
+#Version: 1.2.4
+#Date: 2016-01-16
 #----------------
 #About the codex.txt file...
 #The expected format of the file is as follows:
@@ -35,7 +35,7 @@ parser.add_argument("-g", nargs='+', type=int, help="Generate a code word via a 
 parser.add_argument("-n", nargs='?', type=int, default=1, help="Number of code phrases to generate.", metavar='number')
 args = parser.parse_args()
 
-version = "1.2.3"
+version = "1.2.4"
 
 if args.v:
     print('code_words version:', version)
